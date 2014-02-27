@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{C56273B0-5F60-4491-A0CA-F2465ED1FAC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{F41FD518-AE31-4848-93A1-24C281CB4667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpCheck.DAL.Domain", "UpCheck.DAL.Domain\UpCheck.DAL.Domain.csproj", "{E417E878-320C-487D-9688-F165ED30BA58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpCheck.DAL.Contract", "UpCheck.DAL.Contract\UpCheck.DAL.Contract.csproj", "{A6E8A897-ECD9-499F-B6AF-FCF17F6F51F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E417E878-320C-487D-9688-F165ED30BA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E417E878-320C-487D-9688-F165ED30BA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E417E878-320C-487D-9688-F165ED30BA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E417E878-320C-487D-9688-F165ED30BA58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6E8A897-ECD9-499F-B6AF-FCF17F6F51F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6E8A897-ECD9-499F-B6AF-FCF17F6F51F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6E8A897-ECD9-499F-B6AF-FCF17F6F51F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6E8A897-ECD9-499F-B6AF-FCF17F6F51F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E417E878-320C-487D-9688-F165ED30BA58} = {C56273B0-5F60-4491-A0CA-F2465ED1FAC0}
+		{A6E8A897-ECD9-499F-B6AF-FCF17F6F51F5} = {C56273B0-5F60-4491-A0CA-F2465ED1FAC0}
+	EndGlobalSection
+EndGlobal
