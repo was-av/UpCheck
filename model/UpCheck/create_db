@@ -1,0 +1,211 @@
+/*==============================================================*/
+/* DBMS name:      Microsoft SQL Server 2008                    */
+/* Created on:     28.02.2014 18:53:34                          */
+/*==============================================================*/
+
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ConsumerService') and o.name = 'FK_CONSUMER_CONSUMERT_CONSUMER')
+alter table ConsumerService
+   drop constraint FK_CONSUMER_CONSUMERT_CONSUMER
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ConsumerService') and o.name = 'FK_CONSUMER_SERVICE T_SERVICE')
+alter table ConsumerService
+   drop constraint "FK_CONSUMER_SERVICE T_SERVICE"
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('Service') and o.name = 'FK_SERVICE_SERVICECA_SERVICEC')
+alter table Service
+   drop constraint FK_SERVICE_SERVICECA_SERVICEC
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Consumer')
+            and   type = 'U')
+   drop table Consumer
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('ConsumerService')
+            and   name  = 'Service To Consumer_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index ConsumerService."Service To Consumer_FK"
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('ConsumerService')
+            and   name  = 'ConsumerToService_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index ConsumerService.ConsumerToService_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ConsumerService')
+            and   type = 'U')
+   drop table ConsumerService
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('Service')
+            and   name  = 'ServiceCategory_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index Service.ServiceCategory_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Service')
+            and   type = 'U')
+   drop table Service
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ServiceCategory')
+            and   type = 'U')
+   drop table ServiceCategory
+go
+
+if exists(select 1 from systypes where name='NameType')
+   drop type NameType
+go
+
+if exists(select 1 from systypes where name='ServiceCategoryType')
+   drop type ServiceCategoryType
+go
+
+if exists(select 1 from systypes where name='ServiceNameType')
+   drop type ServiceNameType
+go
+
+if exists(select 1 from systypes where name='TelType')
+   drop type TelType
+go
+
+/*==============================================================*/
+/* Domain: NameType                                             */
+/*==============================================================*/
+create type NameType
+   from varchar(100)
+go
+
+/*==============================================================*/
+/* Domain: ServiceCategoryType                                  */
+/*==============================================================*/
+create type ServiceCategoryType
+   from varchar(200)
+go
+
+/*==============================================================*/
+/* Domain: ServiceNameType                                      */
+/*==============================================================*/
+create type ServiceNameType
+   from varchar(300)
+go
+
+/*==============================================================*/
+/* Domain: TelType                                              */
+/*==============================================================*/
+create type TelType
+   from char(15)
+go
+
+/*==============================================================*/
+/* Table: Consumer                                              */
+/*==============================================================*/
+create table Consumer (
+   Id                   int                  identity,
+   Name                 NameType             not null,
+   Tel                  TelType              null,
+   constraint PK_CONSUMER primary key (Id)
+)
+go
+
+/*==============================================================*/
+/* Table: ConsumerService                                       */
+/*==============================================================*/
+create table ConsumerService (
+   Id                   int                  identity,
+   Ser_Id               int                  not null,
+   Con_Id               int                  not null,
+   DataOfCreate         datetime             not null,
+   Active               tinyint              not null,
+   constraint PK_CONSUMERSERVICE primary key (Id)
+)
+go
+
+/*==============================================================*/
+/* Index: ConsumerToService_FK                                  */
+/*==============================================================*/
+create index ConsumerToService_FK on ConsumerService (
+Con_Id ASC
+)
+go
+
+/*==============================================================*/
+/* Index: "Service To Consumer_FK"                              */
+/*==============================================================*/
+create index "Service To Consumer_FK" on ConsumerService (
+Ser_Id ASC
+)
+go
+
+/*==============================================================*/
+/* Table: Service                                               */
+/*==============================================================*/
+create table Service (
+   Id                   int                  identity,
+   Ser_Id               int                  null,
+   Name                 ServiceNameType      not null,
+   Price                numeric(10,2)        not null,
+   constraint PK_SERVICE primary key (Id)
+)
+go
+
+/*==============================================================*/
+/* Index: ServiceCategory_FK                                    */
+/*==============================================================*/
+create index ServiceCategory_FK on Service (
+Ser_Id ASC
+)
+go
+
+/*==============================================================*/
+/* Table: ServiceCategory                                       */
+/*==============================================================*/
+create table ServiceCategory (
+   Id                   int                  identity,
+   Name                 ServiceCategoryType  not null,
+   constraint PK_SERVICECATEGORY primary key (Id)
+)
+go
+
+alter table ConsumerService
+   add constraint FK_CONSUMER_CONSUMERT_CONSUMER foreign key (Con_Id)
+      references Consumer (Id)
+go
+
+alter table ConsumerService
+   add constraint "FK_CONSUMER_SERVICE T_SERVICE" foreign key (Ser_Id)
+      references Service (Id)
+go
+
+alter table Service
+   add constraint FK_SERVICE_SERVICECA_SERVICEC foreign key (Ser_Id)
+      references ServiceCategory (Id)
+go
+
