@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UpCheck.DAL.Domain
+namespace UpCheck.DAL.Domain.Default
 {
-    public class Class1
+    public class Service : ServiceBase
     {
     }
 }

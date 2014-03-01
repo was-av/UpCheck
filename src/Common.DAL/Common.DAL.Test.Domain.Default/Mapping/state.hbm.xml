@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Common.DAL.Test.Domain.Default.State, Common.DAL.Test.Domain.Default" table="[state]" select-before-update="true" dynamic-update="true">
+    <!--<property name="LegacyId" column="legacyid" type="int" />-->
+    <id name="Id" type="int">
+      <column name="id" not-null="true" />
+      <generator class="native" />
+    </id>
+    <property name="UserId" column="userid" type="int" />
+    <property name="Modified" column="modified" type="DateTime" />
+    <component name="Description" class="Common.Domain.Default.Description, Common.Domain.Default">
+      <property name="Description" column="description" type="string" />
+      <property name="Name" column="name" type="string" />
+      <property name="Name1" column="name1" type="string" />
+      <property name="Name2" column="name2" type="string" />
+      <property name="Name3" column="name3" type="string" />
+      <property name="Note" column="note" type="string" />
+      <property name="Note1" column="note1" type="string" />
+      <property name="Note2" column="note2" type="string" />
+      <property name="Note3" column="note3" type="string" />
+    </component>
+  </class>
+</hibernate-mapping>

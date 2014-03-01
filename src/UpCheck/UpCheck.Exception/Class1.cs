@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UpCheck.DAL.Contract
+namespace UpCheck.Exception
 {
     public class Class1
     {
